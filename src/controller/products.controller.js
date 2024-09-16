@@ -3,6 +3,7 @@ import { Product } from "../models/products.model.js"
 import { ApiError } from "../utils/ApiError.js"
 import { uploadOnCloudinary, deleteFromCloudinary } from "../utils/cloudinary.js"
 import {  ApiResponse } from "../utils/ApiResponse.js"
+import mongoose from "mongoose"
 
 
 const addProducts = asyncHandler(async (req, res) =>{
@@ -102,7 +103,7 @@ const getAllProducts = asyncHandler(async (req, res) =>{
 
 const getProductById = asyncHandler(async (req, res) =>{
     const { productId } = req.params
-    
+
     if(!mongoose.Types.ObjectId.isValid(productId)){
         throw new ApiError(400, "Invalid product id")
     }
@@ -143,7 +144,7 @@ const updateProduct = asyncHandler(async (req, res) =>{
         throw new ApiError(404, "Product not found")
     }
 
-    if(product.name === name || product.description === description || product.price === price){
+    if(product.name === name && product.description === description && product.price === price){
         throw new ApiError(400, "No changes detected, please update at least one field")
     }
 

@@ -21,10 +21,10 @@ router.route("/addProduct").post(
 
 router.route("/getAllProducts").get(getAllProducts)
 
-router.route("/:id").get(getProductById).delete(deleteProduct)
+router.route("/:productId").get(getProductById).delete(deleteProduct)
 
-router.route("/updateProduct/:id").patch(updateProduct)
+router.route("/updateProduct/:productId").patch(updateProduct)
 
-router.route("/updateImage/:id").patch(upload.single("image"), updateImage)
+router.route("/updateImage/:productId").patch(upload.single("image"), updateImage)
 
 export default router
