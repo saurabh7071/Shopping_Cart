@@ -8,7 +8,7 @@ import mongoose from "mongoose"
 
 const addProducts = asyncHandler(async (req, res) =>{
 
-    const { name, description, price } = req.body
+    const { name, description, price} = req.body
 
     if(!name || !description || !price){
         throw new ApiError(400, "All fields are required!!")
@@ -16,14 +16,14 @@ const addProducts = asyncHandler(async (req, res) =>{
 
     // check for image
     const imageLocalPath = req.files?.image[0]?.path
-    console.log(imageLocalPath);
+    // console.log(imageLocalPath);
 
     if(!imageLocalPath){
         throw new ApiError(400, "Please upload image !!")
     }
 
     const image = await uploadOnCloudinary(imageLocalPath)
-    console.log(image);
+    // console.log(image);
 
     if(!image){
         throw new ApiError(400, "Please upload image !!")
@@ -34,11 +34,13 @@ const addProducts = asyncHandler(async (req, res) =>{
         name,
         description,
         price,
-        image: image.url
+        image: image.url,
     })
 
     // check for product creation
     const createdProduct = await Product.findById(product._id)
+    console.log(product);
+    
 
     if(!createdProduct){
         throw new ApiError(400, "Something went wrong while product storing!!")
